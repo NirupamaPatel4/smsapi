@@ -1,0 +1,309 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SMSApi Test Suite",
+		"_postman_id": "94fb4203-10b8-721a-410e-53ffaa52f573",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Successful Send SMS Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Successful message is received\"] = jsonData.message === \"outbound sms ok\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "Valid request to send an SMS"
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated request to send SMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 401\"] = responseCode.code === 401;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"Unauthorized\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "Unauthenticated request to send SMS API - must return 401"
+			},
+			"response": []
+		},
+		{
+			"name": "Request to send SMS with invalid credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"Forbidden\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Og==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "Unauthorized request to send SMS API - must return 403"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Request to send SMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 405\"] = responseCode.code === 405;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"Method Not Allowed\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "GET request to send SMS API - must return 405"
+			},
+			"response": []
+		},
+		{
+			"name": "Request without Content-Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"Bad Request\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "POST request to send SMS API without Content-Type - must return 400"
+			},
+			"response": []
+		},
+		{
+			"name": "Request with invalid body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Error is correct\"] = jsonData.error === \"From is invalid.\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"12345\",\n\t\"to\": \"123456\",\n\t\"text\": \"Hi\"\n}"
+				},
+				"description": "POST request to send SMS API with invalid body - must return 400"
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Text in Body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Error is correct\"] = jsonData.error === \"Text is missing.\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\"\n}"
+				},
+				"description": "POST request to send SMS API with invalid body (missing parameter) - must return 400"
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 403\"] = responseCode.code === 403;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"Forbidden\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:8080/outbound/sms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic c2hpbHBhOnNoaWxwYTE=",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\" : \"123456\",\n\t\"to\": \"123456\"\n}"
+				},
+				"description": "POST request to send SMS API with invalid credentials - must return 403"
+			},
+			"response": []
+		}
+	]
+}
