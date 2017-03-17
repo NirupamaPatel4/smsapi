@@ -26,7 +26,7 @@ var basicAuthPrefix = []byte("Basic ")
 func basicAuth(ctx *fasthttp.RequestCtx, next handlers.Handler) {
 
 	user := []byte("shilpa")
-	pass := []byte("shilpa")
+	pass := []byte("821bc092-fcc1-4e3c-8420-3357fd1b36e6")
 	// Get the Basic Authentication credentials
 	auth := ctx.Request.Header.Peek("Authorization")
 	if bytes.HasPrefix(auth, basicAuthPrefix) {

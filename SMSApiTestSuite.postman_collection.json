@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SMSApi Test Suite",
-		"_postman_id": "94fb4203-10b8-721a-410e-53ffaa52f573",
+		"_postman_id": "ef1dd402-b96d-0429-9b71-0f1f652d69cf",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -35,7 +35,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"value": "Basic c2hpbHBhOjgyMWJjMDkyLWZjYzEtNGUzYy04NDIwLTMzNTdmZDFiMzZlNg==",
 						"description": ""
 					}
 				],
@@ -177,7 +177,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"value": "Basic c2hpbHBhOjgyMWJjMDkyLWZjYzEtNGUzYy04NDIwLTMzNTdmZDFiMzZlNg==",
 						"description": ""
 					}
 				],
@@ -211,7 +211,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"value": "Basic c2hpbHBhOjgyMWJjMDkyLWZjYzEtNGUzYy04NDIwLTMzNTdmZDFiMzZlNg==",
 						"description": ""
 					},
 					{
@@ -250,7 +250,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic c2hpbHBhOnNoaWxwYQ==",
+						"value": "Basic c2hpbHBhOjgyMWJjMDkyLWZjYzEtNGUzYy04NDIwLTMzNTdmZDFiMzZlNg==",
 						"description": ""
 					},
 					{
