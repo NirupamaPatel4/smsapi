@@ -13,7 +13,7 @@ A REST API written in GoLang to send SMS to a Kannel server
 Set the credentials to be used by the API in the environment variables SMSAPI_USER and SMSAPI_PASS
 
 ```
-go run main.go
+go run src/smsapi/main.go
 ```
 
 Access the API at http://localhost:8080/outbound/sms/
