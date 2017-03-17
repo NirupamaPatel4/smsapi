@@ -14,6 +14,9 @@ A REST API written in GoLang to send SMS to a Kannel server
 ```
 go run main.go
 ```
+
+Access the API at http://localhost:8080/outbound/sms/
+
 # Test
 
 Unit tests:
@@ -45,7 +48,9 @@ Kannel:
 
 Install the Kannel software by following the instructions in the [documentation.](http://kannel.org/download/1.4.4/userguide-1.4.4/userguide.html#AEN340)
 
-Replace kannel.conf in /etc/kannel with this [kannel.conf.]()
+Replace kannel.conf in /etc/kannel with this [kannel.conf.](https://github.com/shilps1583/smsapi/blob/master/conf/kannel.conf)
+
+Modify /etc/default/kannel and uncomment the START_SMSBOX=1 line
 
 Run Kannel as a service using the command
 
@@ -59,7 +64,7 @@ SMPPSIM:
 
 Install the Kannel software by following the instructions in the [documentation.](http://www.seleniumsoftware.com/user-guide.htm#installation)
 
-Replace conf/smppsim.props in the installation directory with this [smppsim.props.]()
+Replace conf/smppsim.props in the installation directory with this [smppsim.props.](https://github.com/shilps1583/smsapi/blob/master/conf/smppsim.props)
 
 Run the following command
 
