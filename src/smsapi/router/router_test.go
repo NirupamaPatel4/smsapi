@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/valyala/fasthttp"
+	"os"
 	"testing"
 )
 
@@ -55,11 +56,12 @@ func TestHandleUnAuthenticatedPostToOutboundSmsRoute(t *testing.T) {
 }
 
 func TestHandlePostToOutboundSmsRouteWithInvalidCredentials(t *testing.T) {
+	os.Setenv("SMSAPI_PASS", "")
 	var ctx fasthttp.RequestCtx
 	var req fasthttp.Request
 	req.SetRequestURI("http://localhost:8080/outbound/sms/")
 	req.Header.SetMethod("POST")
-	req.Header.Add("Authorization", "Basic c2hpbHBhOnNoaWxw9Q==")
+	req.Header.Add("Authorization", "Basic c2hpbHBhOa==")
 	ctx.Init(&req, nil, nil)
 	HandleRoute(&ctx)
 
@@ -73,11 +75,12 @@ func TestHandlePostToOutboundSmsRouteWithInvalidCredentials(t *testing.T) {
 }
 
 func TestHandlePostToOutboundSmsRouteWithValidCredentials(t *testing.T) {
+	os.Setenv("SMSAPI_PASS", "")
 	var ctx fasthttp.RequestCtx
 	var req fasthttp.Request
 	req.SetRequestURI("http://localhost:8080/outbound/sms/")
 	req.Header.SetMethod("POST")
-	req.Header.Add("Authorization", "Basic c2hpbHBhOnNoaWxwYQ==")
+	req.Header.Add("Authorization", "Basic c2hpbHBhOg==")
 	req.Header.SetContentType("application/json")
 	req.SetBodyString("{ \"From\" : \"123456\", \"To\": \"123456\", \"Text\": \"Hi\"}")
 	ctx.Init(&req, nil, nil)

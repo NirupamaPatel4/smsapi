@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"github.com/valyala/fasthttp"
+	"os"
 	"smsapi/handlers"
 )
 
@@ -25,8 +26,8 @@ var basicAuthPrefix = []byte("Basic ")
 // BasicAuth is the basic auth handler
 func basicAuth(ctx *fasthttp.RequestCtx, next handlers.Handler) {
 
-	user := []byte("shilpa")
-	pass := []byte("821bc092-fcc1-4e3c-8420-3357fd1b36e6")
+	user := []byte(os.Getenv("SMSAPI_USER"))
+	pass := []byte(os.Getenv("SMSAPI_PASS"))
 	// Get the Basic Authentication credentials
 	auth := ctx.Request.Header.Peek("Authorization")
 	if bytes.HasPrefix(auth, basicAuthPrefix) {
