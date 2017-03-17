@@ -1,0 +1,14 @@
+smsapi/router/router.go:10:         HandleRoute     				100.0%
+smsapi/router/router.go:26:         basicAuth       				100.0%
+total:                              (statements)    				100.0%
+
+smsapi/models/smsrequest.go:14:     Validate        				100.0%
+total:                              (statements)    				100.0%
+
+smsapi/handlers/smshandler.go:14:	Handle							100.0%
+smsapi/handlers/smshandler.go:46:	GetSMSHandlerForTest			100.0%
+smsapi/handlers/smshandler.go:50:	GetSMSHandler					0.0%
+smsapi/handlers/smshandler.go:54:	validateAndCreateSMSRequest		100.0%
+total:					            (statements)					96.9%
+
+
