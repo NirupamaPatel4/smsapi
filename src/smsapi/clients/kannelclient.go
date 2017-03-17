@@ -22,15 +22,13 @@ func (kannelClient *KannelClient) SendSms(from string, to string, text string) (
 	uri := fmt.Sprintf("%s&from=%s&to=%s&text=%s", kannelClient.baseUri, from, to, text)
 	req := fasthttp.AcquireRequest()
 	req.SetRequestURI(uri)
+	defer fasthttp.ReleaseRequest(req)
 
 	resp := fasthttp.AcquireResponse()
+	defer fasthttp.ReleaseResponse(resp)
 	client := &fasthttp.Client{}
 	err = client.Do(req, resp)
-
-	bodyBytes := resp.Body()
 	status = resp.StatusCode()
-	fmt.Println(string(bodyBytes))
-
 	return
 }
 
